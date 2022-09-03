@@ -5,12 +5,16 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.ListPosition;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class redisTest {
 
         public static void main(String[] args) {
                 System.out.println(getJedis().ping());
 //                testString();
-                testList();
+//                testList();
+                testHash();
         }
 
         public static Jedis getJedis() {
@@ -54,5 +58,17 @@ public class redisTest {
                 System.out.println("jedis.lpop(\"list1\") = " + jedis.lpop("list1"));
 
                 jedis.close();
+        }
+
+        public static void testHash(){
+                Jedis jedis = getJedisPool();
+                Map<String, String> map = new HashMap<>();
+                map.put("age","29");
+                map.put("name","zhangsan");
+
+//                jedis.hset("hash","age","20");
+                jedis.hset("hash",map);
+//                System.out.println("jedis.hget(\"hash\",\"age\") = " + jedis.hget("hash", "age"));
+                System.out.println("jedis.hvals(\"hash\") = " + jedis.hvals("hash"));
         }
 }
