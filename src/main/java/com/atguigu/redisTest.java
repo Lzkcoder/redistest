@@ -3,12 +3,14 @@ package com.atguigu;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.ListPosition;
 
 public class redisTest {
 
         public static void main(String[] args) {
                 System.out.println(getJedis().ping());
-                testString();
+//                testString();
+                testList();
         }
 
         public static Jedis getJedis() {
@@ -38,8 +40,19 @@ public class redisTest {
                 System.out.println("jedis.get(\"zhangsan\") = " + jedis.get("zhangsan"));
 
                 System.out.println("jedis.strlen(\"zhangsan\") = " + jedis.strlen("zhangsan"));
-                
+
                 jedis.close();
         }
 
+        public static void testList() {
+                Jedis jedis = getJedisPool();
+                jedis.lpush("list1", "1", "2", "3");
+                System.out.println("jedis.lpop(\"list1\") = " + jedis.lpop("list1"));
+                System.out.println("jedis.lrange(\"list1\",0,2) = " + jedis.lrange("list1", 0, 2));
+                System.out.println("jedis.lindex(\"list1\",2) = " + jedis.lindex("list1", 2));
+                jedis.linsert("list1", ListPosition.AFTER, "2", "1.1");
+                System.out.println("jedis.lpop(\"list1\") = " + jedis.lpop("list1"));
+
+                jedis.close();
+        }
 }
