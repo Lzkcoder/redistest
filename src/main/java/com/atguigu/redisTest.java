@@ -7,6 +7,7 @@ import redis.clients.jedis.ListPosition;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 public class redisTest {
 
@@ -14,11 +15,16 @@ public class redisTest {
                 System.out.println(getJedis().ping());
 //                testString();
 //                testList();
-                testHash();
+//                testHash();
         }
 
         public static Jedis getJedis() {
-                return new Jedis("hadoop102", 6379);
+                Jedis jedis = new Jedis("ykdsb.top", 6379);
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("password:\n");
+                String next = scanner.nextLine();
+                jedis.auth(next);
+                return jedis;
         }
 
         private static JedisPool jedisPool = null;
