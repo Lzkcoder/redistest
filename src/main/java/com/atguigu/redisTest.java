@@ -21,9 +21,14 @@ public class redisTest {
         public static Jedis getJedis() {
                 Jedis jedis = new Jedis("ykdsb.top", 6379);
                 Scanner scanner = new Scanner(System.in);
+                String c,s="" ;
+
+                do {
+                        c = scanner.next();
+                        s = s.concat(c);
+                }while (c.equals( "\n"));
                 System.out.println("password:\n");
-                String next = scanner.nextLine();
-                jedis.auth(next);
+                jedis.auth(s);
                 return jedis;
         }
 
