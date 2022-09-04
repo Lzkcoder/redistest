@@ -33,7 +33,7 @@ public class redisTest {
                         jedisPoolConfig.setBlockWhenExhausted(true);
                         jedisPoolConfig.setMaxWaitMillis(2000);
                         jedisPoolConfig.setTestOnBorrow(true);
-                        jedisPool = new JedisPool("hadoop102", 6379);
+                        jedisPool = new JedisPool(jedisPoolConfig,"hadoop102", 6379);
                 }
                 return jedisPool.getResource();
         }
